@@ -1,0 +1,311 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 0 20px 0 0;
+}
+
+ul{
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  margin-left: 20px;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+li{
+  margin: 10px;
+  padding: 10px;
+}
+
+.userbtn{
+  height: 2.4rem;
+  width: 4.2rem;
+  margin: 10px;
+  background-color: blue;
+  border-radius: 12px;
+}
+
+.container{
+  padding: 10px 20px;
+  margin: 10px 0;
+}
+/* Notes */
+
+form{
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  width: 80%;
+  margin: 10px auto;
+  background-color: antiquewhite;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+label{
+  display: flex;
+  justify-content: space-evenly;
+  font-size: large;
+}
+
+input,textarea{
+  width: 70%;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+span{
+  width: 10%;
+}
+
+.submit{
+  margin: 0 auto;
+  background-color: aqua;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: medium;
+  cursor: pointer;
+}
+
+.show{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* NoteItem */
+
+.title{
+  background-color: black;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.title h2{
+  width: 70%;
+}
+
+.noteItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 27%;
+  background-color: rgb(253, 200, 102);
+  margin : 20px;
+  min-height: 25vh;
+  border-radius: 10px;
+  border-bottom-right-radius: 18%;
+}
+
+.desc {
+  padding:  0px 10px 20px 10px;
+}
+
+.edit, .delete{
+  cursor: pointer;
+}
+
+
+/* Modal  */
+.modal{
+  display: none;
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0,0.4);
+}
+
+.modal-content {
+  background-color: antiquewhite;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.badge{
+  background-color: red;
+  padding: 5px 13px;
+  border-radius: 20px; 
+  position: absolute;
+  font-size: small;
+  font-weight: bold;
+  width: fit-content;
+  bottom: 7px;
+  left: -30px;
+}
+
+.badgebox{
+  position: relative;
+  
+}
+
+/* Profile  */
+
+.profile-img {
+  height : 250px;
+  width: 250px;
+  border-radius: 50%;
+  border: 1px solid blue;
+  overflow: hidden;
+  margin: 30px;
+}
+.profile-img img{
+  width: 250px;
+  height: 250px;
+  z-index: -1;
+}
+
+.profile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+  margin: 25px;
+}
+
+.profile-detail{
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.profile-detail input{
+  width: 50%;
+  font-size: larger;
+  font-weight: bold;
+}
+
+
+.update-user{
+  display: none;
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  gap: 10px;
+  margin: auto;
+}
+
+.profile-btn .save-btn,.cancel-btn{
+  display: none;
+}
+
+.profile-detail span, .profile-detail i {
+  width: 20%;
+}
+
+
+/* Login */
+
+.login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+.login-box{
+  width: 40%;
+  height: 50%;
+  padding: 3rem;
+  border: 3px solid #00000072;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0,0.4);
+}
+
+.login-box h1{
+  font-size:40px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.login-field{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+}
+
+/* Signup */
+
+.signup-form{
+  background-color: white;
+  width: 100%;
+}
+
+/* Alert */
+
+.alert{
+  position: sticky;
+  top: 0;
+}
+
+.alert-danger{
+  background-color: rgba(255, 0, 0, 0.723);
+  height: 30px;
+  position: absolute;
+  width: 100%;
+  display: none;
+  text-align: center;
+  color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 5px;
+}
+.alert-success{
+  background-color: rgba(0, 255, 26, 0.786);
+  height: 30px;
+  position: absolute;
+  width: 100%;
+  display: none;
+  text-align: center;
+  color: black;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 5px;
+}
