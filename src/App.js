@@ -18,7 +18,7 @@ function App() {
   console.log(host)
   const [notes, setNotes] = useState([]);
   const [user, setUser] = useState({});
-  let [loggedin, setLoggedin] = useState(localStorage.getItem('authtoken') ? true : false)
+  let [loggedin, setLoggedin] = useState(localStorage.getItem('authtoken')!=='undefined' && localStorage.getItem('authtoken')? true:false)
   let [alert,setAlert] = useState([])
   let [loading,setLoading] = useState(false)
 
