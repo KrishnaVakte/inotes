@@ -10,7 +10,7 @@ export default function Login(props) {
     let password = document.getElementById('login-password').value
     let authjson = await props.loginUser(username,password)
     localStorage.setItem('authtoken',authjson.authtoken)
-    props.setLogin(localStorage.getItem('authtoken')!=='undefined' && localStorage.getItem('authtoken')? true:false)
+    props.setLogin(localStorage.getItem('authtoken')? true:false && localStorage.getItem('authtoken')!=='undefined')
   }
   
     useEffect(()=>{

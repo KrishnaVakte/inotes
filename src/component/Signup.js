@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 export default function Signup(props) {
   const navigate = useNavigate();
 
-  const onsubmit = (e) => {
+  const onsubmit =async (e) => {
     let name = document.getElementById('signup-name').value
     let country = document.getElementById('signup-country').value
     let email = document.getElementById('signup-email').value
@@ -13,8 +13,8 @@ export default function Signup(props) {
     let cnfPassword = document.getElementById('signup-cnfPassword').value
     e.preventDefault();
     if (cnfPassword === password) {
-      props.createUser(name, email, mobile, country, password)
-      props.setLogin(localStorage.getItem('authtoken')!=='undefined' && localStorage.getItem('authtoken')? true:false)
+      await props.createUser(name, email, mobile, country, password)
+      props.setLogin( localStorage.getItem('authtoken')? true:false && localStorage.getItem('authtoken')!=='undefined')
     }
     else {
       props.setAlrt(['danger','ERROR : Invalid details...'])

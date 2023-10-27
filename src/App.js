@@ -15,10 +15,9 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 function App() {
   const navigate = useNavigate();
   const host = process.env.REACT_APP_BASE_URL;
-  console.log(host)
   const [notes, setNotes] = useState([]);
   const [user, setUser] = useState({});
-  let [loggedin, setLoggedin] = useState(localStorage.getItem('authtoken')!=='undefined' && localStorage.getItem('authtoken')? true:false)
+  let [loggedin, setLoggedin] = useState( localStorage.getItem('authtoken')? true:false && localStorage.getItem('authtoken')!=='undefined' )
   let [alert,setAlert] = useState([])
   let [loading,setLoading] = useState(false)
 
@@ -178,9 +177,15 @@ function App() {
         }
       })
       const user = await response.json();
-      setUser(user);
-      setAlert(['success','User created successfully...'])
-      localStorage.setItem('authtoken',user.authtoken)
+      if(user.authtoken){
+        setUser(user);
+        setAlert(['success','User created successfully...'])
+        localStorage.setItem('authtoken',user.authtoken)
+        }else{
+          setAlert(['danger','ERROR : Invalid details...'])  
+        }
+      
+      
     } catch (error) {
       setAlert(['danger','ERROR : Invalid details...'])  
     }
