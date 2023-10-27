@@ -14,7 +14,7 @@ export default function Signup(props) {
     e.preventDefault();
     if (cnfPassword === password) {
       props.createUser(name, email, mobile, country, password)
-      props.setLogin(true)
+      props.setLogin(localStorage.getItem('authtoken')!=='undefined' && localStorage.getItem('authtoken')? true:false)
     }
     else {
       props.setAlrt(['danger','ERROR : Invalid details...'])
