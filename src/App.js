@@ -10,20 +10,24 @@ import About from './component/About'
 import Alert from './component/Alert'
 
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 function App() {
-  const host = process.env.REACT_APP_HOST;
+  const navigate = useNavigate();
+  const host = process.env.REACT_APP_BASE_URL;
+  console.log(host)
   const [notes, setNotes] = useState([]);
   const [user, setUser] = useState({});
   let [loggedin, setLoggedin] = useState(localStorage.getItem('authtoken') ? true : false)
   let [alert,setAlert] = useState([])
   let [loading,setLoading] = useState(false)
 
-  const setLoad = (flag)=>{
-    setLoading(flag)
-  }
-
+  useState(()=>{
+    if(!loggedin){
+      navigate('/login')
+    }
+  },[loggedin])
+  
   const setAlrt = (arr)=>{
     setAlert(arr)
   }
