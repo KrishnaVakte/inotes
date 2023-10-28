@@ -7,10 +7,9 @@ export default function Login(props) {
 
   const onsubmit = async ()=>{
     let username = document.getElementById('login-username').value
-    let password = document.getElementById('login-password').value
-    let authjson = await props.loginUser(username,password)
-    localStorage.setItem('authtoken',authjson.authtoken)
-    props.setLogin(localStorage.getItem('authtoken')? true:false && localStorage.getItem('authtoken')!=='undefined')
+    let password = document.getElementById('login-password').value 
+    await props.loginUser(username,password)
+    
   }
   
     useEffect(()=>{

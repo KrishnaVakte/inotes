@@ -1,5 +1,6 @@
 
 import './App.css';
+import './responsive.css'
 import React, { useState } from 'react';
 import Navbar from './component/Navbar';
 import Profile from './component/Profile';
@@ -10,24 +11,19 @@ import About from './component/About'
 import Alert from './component/Alert'
 
 
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  const navigate = useNavigate();
   const host = process.env.REACT_APP_BASE_URL;
   const [notes, setNotes] = useState([]);
   const [user, setUser] = useState({});
-  let [loggedin, setLoggedin] = useState( localStorage.getItem('authtoken')? true:false && localStorage.getItem('authtoken')!=='undefined' )
-  let [alert,setAlert] = useState([])
-  let [loading,setLoading] = useState(false)
+  let [loggedin, setLoggedin] = useState((localStorage.getItem('authtoken') ? true : false) && localStorage.getItem('authtoken') !== 'undefined')
+  let [alert, setAlert] = useState([])
+  let [loading, setLoading] = useState(false)
 
-  useState(()=>{
-    if(!loggedin){
-      navigate('/login')
-    }
-  },[loggedin])
   
-  const setAlrt = (arr)=>{
+
+  const setAlrt = (arr) => {
     setAlert(arr)
   }
 
@@ -52,7 +48,7 @@ function App() {
       }
     } catch (error) {
       setNotes([])
-      setAlert(['danger','Login First...'])
+      setAlert(['danger', 'ERROR...'])
       setLoading(false)
     }
   }
@@ -69,9 +65,9 @@ function App() {
       })
       const json = await response.json()
       getNotes();
-      setAlert(['success','Your note has been added successfully...'])
+      setAlert(['success', 'Your note has been added successfully...'])
     } catch (error) {
-      setAlert(['danger','Note is note added.'])
+      setAlert(['danger', 'Note is note added.'])
     }
   }
 
@@ -87,9 +83,9 @@ function App() {
       })
       const json = await response.json()
       getNotes();
-      setAlert(['success','Note has been edited successfully..'])
+      setAlert(['success', 'Note has been edited successfully..'])
     } catch (error) {
-      setAlert(['danger','Note is not edited..'])
+      setAlert(['danger', 'Note is not edited..'])
     }
   }
 
@@ -104,9 +100,9 @@ function App() {
       })
       const json = await response.json()
       getNotes();
-      setAlert(['success','Note has been deleted successfully...'])
+      setAlert(['success', 'Note has been deleted successfully...'])
     } catch (error) {
-      setAlert(['danger','Error : Note has not deleted'])
+      setAlert(['danger', 'Error : Note has not deleted'])
     }
   }
 
@@ -137,11 +133,11 @@ function App() {
       const newUser = await response.json();
       if (newUser) {
         setUser(newUser);
-        setAlert(['success','User Details Updated Successfully...'])
+        setAlert(['success', 'User Details Updated Successfully...'])
       }
 
     } catch (error) {
-      setAlert(['danger','ERROR : user Details has not updated successfully..'])
+      setAlert(['danger', 'ERROR : user Details has not updated successfully..'])
     }
   }
 
@@ -154,40 +150,43 @@ function App() {
           'Content-Type': 'application/json',
         }
       })
-      const user = await  response.json()
-      if(user.authtoken){
-      setUser(user);
-      setAlert(['success','user login successfully...'])
-      }else{
-        setAlert(['danger','ERROR : Invalid Credintials... Try again...'])
+      const user = await response.json()
+      if (user.authtoken) {
+        setUser(user);
+        setAlert(['success', 'user login successfully...'])
+        localStorage.setItem('authtoken',user.authtoken)
+        setLoggedin(true)
+      } else {
+        setAlert(['danger', 'ERROR : Invalid Credintials... Try again...'])
       }
       return user;
     } catch (error) {
-      
+      setAlert(['danger',error.message])
     }
   }
 
-  const createUser = async (name,email,mobile,country,password)=>{
+  const createUser = async (name, email, mobile, country, password) => {
     try {
-      const response = await fetch(`${host}/api/auth/createuser`,{
+      const response = await fetch(`${host}/api/auth/createuser`, {
         method: 'POST',
-        body : JSON.stringify({name,email,mobile,country,password}),
-        headers : {
-          'Content-Type' : 'application/json'
+        body: JSON.stringify({ name, email, mobile, country, password }),
+        headers: {
+          'Content-Type': 'application/json'
         }
       })
       const user = await response.json();
-      if(user.authtoken){
+      if (user.authtoken) {
         setUser(user);
-        setAlert(['success','User created successfully...'])
-        localStorage.setItem('authtoken',user.authtoken)
-        }else{
-          setAlert(['danger','ERROR : Invalid details...'])  
-        }
-      
-      
+        setAlert(['success', 'User created successfully...'])
+        localStorage.setItem('authtoken', user.authtoken)
+        setLoggedin(true)
+      } else {
+        setAlert(['danger', 'ERROR : Invalid details...'])
+      }
+
+
     } catch (error) {
-      setAlert(['danger','ERROR : Invalid details...'])  
+      setAlert(['danger', 'ERROR : Invalid details...'])
     }
   }
 
@@ -195,12 +194,12 @@ function App() {
   return (
     <div className="">
       <Navbar loggedin={loggedin} setLogin={setLogin} />
-      <Alert alert={alert}/>
+      <Alert alert={alert} />
       <Routes>
         <Route exact path="/about" element={<About />} />
         <Route exact path="/profile" element={<Profile name={user.name} email={user.email} mobile={user.mobile} country={user.country} getUser={getUser} updateUser={updateUser} />} />
         <Route exact path="/login" element={<Login loginUser={loginUser} loggedin={loggedin} setLogin={setLogin} />} />
-        <Route exact path="/signup" element={<Signup createUser={createUser} loggedin={loggedin} setAlrt={setAlrt} setLogin={setLogin}/>} />
+        <Route exact path="/signup" element={<Signup createUser={createUser} loggedin={loggedin} setAlrt={setAlrt} setLogin={setLogin} />} />
         <Route exact path="/" element={<Notes getNotes={getNotes} loading={loading} notes={notes} addNote={addNote} editNote={editNote} deleteNote={deleteNote} loggedin={loggedin} />} />
       </Routes>
 
