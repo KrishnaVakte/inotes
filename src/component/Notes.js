@@ -12,14 +12,13 @@ export default function Notes(props) {
   }
 
   useEffect(() => {
-    console.log(props.loggedin)
     props.getNotes();
     if(!props.loggedin){
       navigate('/login')
     }
   }, [])
 
-  const handleClick = (e) => {
+  const handleClick =  (e) => {
     e.preventDefault();
     props.addNote(note.title, note.description, note.tag);
     setNote(initialNote);

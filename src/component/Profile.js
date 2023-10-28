@@ -14,6 +14,7 @@ export default function Profile(props) {
     props.getUser();
     setUser({name,mobile,email,country})
   },[name,mobile,email,country])
+
   const handleEdit = (e) => {
     let update = document.getElementsByClassName('update-user')[0];
     let save = document.getElementsByClassName('save-btn')[0];
@@ -45,7 +46,7 @@ export default function Profile(props) {
     password.value = ''
   }
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
 
     let cancel = document.getElementsByClassName('cancel-btn')[0];
     cancel.style.display = 'none'
@@ -56,7 +57,11 @@ export default function Profile(props) {
       newPassword = null;
     }
     let {name,mobile,country,email} = user;
-    props.updateUser(name,mobile,country,email,password,newPassword);
+    let bool = await props.updateUser(name,mobile,country,email,password,newPassword);
+    if(!bool){
+      let {name,mobile,country,email} =props;
+      setUser({name,mobile,email,country})
+    }
     handleCancel(e);
   }
 

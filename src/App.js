@@ -115,7 +115,7 @@ function App() {
       }
     })
     const newUser = await response.json();
-    if (newUser) {
+    if (newUser.name) {
       setUser(newUser);
     }
   }
@@ -131,13 +131,18 @@ function App() {
         body: JSON.stringify({ name, mobile, country, email, password, newPassword })
       })
       const newUser = await response.json();
-      if (newUser) {
-        setUser(newUser);
+      if (newUser.name) {
+        setUser(newUser)
         setAlert(['success', 'User Details Updated Successfully...'])
+        return true;
+      }else{
+        setAlert(['danger', 'ERROR : user Details has not updated successfully..'])
+        return false
       }
 
     } catch (error) {
       setAlert(['danger', 'ERROR : user Details has not updated successfully..'])
+      return false;
     }
   }
 
